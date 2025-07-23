@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyAdmin } from "@/middleware/auth";
 import Product from "@/app/models/Product";
-import { connectDB } from "@/app/lib/mongodb";
+import { connectDB } from "@/app/lib/connect";
 
 export async function POST(req) {
   try {

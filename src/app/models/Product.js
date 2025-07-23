@@ -41,5 +41,6 @@ const ProductSchema = new mongoose.Schema(
   },
   { timestamps: true } // Dodaje createdAt i updatedAt automatski
 );
+ProductSchema.index({ title: "text", description: "text" });
 
 export default mongoose.models.Product || mongoose.model("Product", ProductSchema);

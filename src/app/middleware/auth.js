@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "@/app/models/User";
-import { connectDB } from "@/app/lib/mongodb";
+import { connectDB } from "@/app/lib/connect";
 
 export const verifyAdmin = async (req) => {
   await connectDB();

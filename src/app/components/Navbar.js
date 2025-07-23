@@ -7,6 +7,7 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import Link from "next/link";
 import Image from 'next/image';
 import { usePathname } from "next/navigation";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -26,7 +27,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full bg-white shadow-xl sticky px-4  z-50">
+    <nav className="w-full bg-white shadow-md sticky px-4  z-50">
      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
   {/* Logo */}
   <Link href="/">
@@ -40,8 +41,9 @@ export default function Navbar() {
   </Link>
 
   {/* Search */}
-  <form onSubmit={handleSearch} className="relative mt-[12px] ml-4">
-    <input
+  {/* <form onSubmit={handleSearch} className="relative mt-[12px] ml-4"> */}
+    <SearchBar />
+    {/* <input
       type="text"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
@@ -53,8 +55,8 @@ export default function Navbar() {
       className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 px-3 cursor-pointer"
     >
      <HiMagnifyingGlass size={24} />
-    </button>
-  </form>
+    </button> */}
+  {/* </form> */}
 
   {/* Nav Links + User Icon */}
   <div className="flex items-center space-x-[40px]">

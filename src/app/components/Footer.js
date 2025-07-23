@@ -16,7 +16,6 @@ export default function Footer() {
       alt: "Banka Intesa",
       src: "/images/bancaIntesa.png",
       href: "http://www.bancaintesa.rs/pocetna.1.html",
-      className: "w-[100px]"
     },
     {
       alt: "Dina",
@@ -42,9 +41,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-100 py-4">
-    <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 px-6 md:grid-cols-4 gap-6">
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 px-6 md:grid-cols-4 gap-6">
         {/* Korisnički servis */}
         <div>
           <h5 className="text-lg font-semibold mb-3">Кориснички сервис</h5>
@@ -83,42 +80,51 @@ export default function Footer() {
             <li><a href="">Sitemap</a></li>
           </ul>
         </div>
-            <div className="max-w-xl mx-auto text-center">
-        <h5 className="text-lg font-semibold mb-2">Пратите нас</h5>
-        <p className="text-sm text-gray-600 mb-4">
-          Сазнајте све о нашим понудама и попустима на нашим фејсбук и инстаграм страницама.
-        </p>
 
-        <div className="flex justify-center gap-6">
-          {/* Instagram */}
-          <a
-            href=""
-            title="Instagram"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-transform hover:scale-110"
-          >
-            <FaInstagram className="w-8 h-8" />
-            
-          </a>
-
-          {/* Facebook */}
-          <a
-            href=""
-            title="Facebook"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-transform hover:scale-110"
-          >
-                <FaFacebook className="w-8 h-8" />
-          </a>
+        {/* Pratite nas */}
+        <div className="max-w-xl mx-auto text-center">
+          <h5 className="text-lg font-semibold mb-2">Пратите нас</h5>
+          <p className="text-sm text-gray-600 mb-4">
+            Сазнајте све о нашим понудама и попустима на нашим фејсбук и инстаграм страницама.
+          </p>
+          <div className="flex justify-center gap-6">
+            <a
+              href=""
+              title="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-110"
+            >
+              <FaInstagram className="w-8 h-8" />
+            </a>
+            <a
+              href=""
+              title="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-110"
+            >
+              <FaFacebook className="w-8 h-8" />
+            </a>
+          </div>
         </div>
       </div>
-      </div>
-    </div>
-      <div className="max-w-6xl mx-auto flex flex-wrap justify-center items-center gap-6">
-        {items.map((item, index) =>
-          item.href ? (
+
+      {/* Platne kartice i logoi */}
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-center items-center gap-6 mt-6">
+        {items.map((item, index) => {
+          const img = (
+            <Image
+              key={index}
+              src={item.src}
+              alt={item.alt}
+              width={80}
+              height={40}
+              className="object-contain"
+            />
+          );
+
+          return item.href ? (
             <Link
               key={index}
               href={item.href}
@@ -126,20 +132,15 @@ export default function Footer() {
               rel="noopener noreferrer"
               title={item.alt}
             >
-              <Image src={item.src} alt={item.alt} width={80} height={40} />
+              {img}
             </Link>
           ) : (
-            <Image
-              key={index}
-              src={item.src}
-              alt={item.alt}
-              width={80}
-              height={40}
-            />
-          )
-        )}
+            img
+          );
+        })}
       </div>
-      <div className="flex justify-center mt-2">
+
+      <div className="flex justify-center mt-2 text-sm text-gray-500">
         <p>©2025 www.galitekstil.com, Сва права задржана.</p>
       </div>
     </footer>

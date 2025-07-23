@@ -25,9 +25,15 @@ export default function LoginPage() {
     try {
       const res = await fetch("/api/login", {
         method: "POST",
+        body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
       });
+
+      const data = await res.json();
+      if (res.ok) {
+        router.push("/admin"); // ili gde god želiš
+      }
+
 
       if (!res.ok) {
         const errorData = await res.json();

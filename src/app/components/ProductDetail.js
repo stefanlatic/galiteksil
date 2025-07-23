@@ -1,5 +1,6 @@
 
 export default function ProductDetail({ product }) {
+   console.log("Product u ProductDetail:", product);
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
