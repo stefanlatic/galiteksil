@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = NextResponse.json({ message: "Odjavljen" });
+  const response = NextResponse.json({ message: "Одјављени сте" });
   response.cookies.set("token", "", {
     httpOnly: true,
     path: "/",
-    expires: new Date(0), // odmah ističe
+    expires: new Date(0), 
   });
   return response;
 }

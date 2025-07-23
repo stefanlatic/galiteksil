@@ -1,29 +1,18 @@
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/app/lib/auth";
 
 export default function AdminPage() {
-  const cookieStore = cookies();
-  const token = cookieStore.get("token")?.value;
+  const user = getCurrentUser();
 
-  if (!token) {
-    return <p>Pristup zabranjen</p>;
+  if (!user || user.role !== "admin") {
+    redirect("/login");
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (decoded.role !== "admin") {
-      return <p>Niste administrator</p>;
-    }
-
-    // Ako je sve ok, prikaži admin panel:
-    return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
-        <p>Ovde ide forma za dodavanje proizvoda...</p>
-      </div>
-    );
-  } catch (error) {
-    return <p>Neispravan token</p>;
-  }
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+      <p>Ovde ide forma za dodavanje proizvoda...</p>
+    </div>
+  );
 }

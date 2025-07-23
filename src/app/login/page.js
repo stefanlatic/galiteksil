@@ -1,91 +1,91 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
-
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
 
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await res.json();
-      if (res.ok) {
-        router.push("/admin"); // ili gde god želiš
-      }
+    const data = await res.json();
 
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        setError(errorData.message || "Neuspešna prijava");
-        setLoading(false);
-        return;
-      }
-
-      // Ako je uspešno - preusmeravanje
-      router.push("/");
-    } catch (err) {
-      setError("Greška na serveru");
-    } finally {
-      setLoading(false);
+    if (res.ok) {
+      router.push("/moj-nalog");
+    } else {
+      setError(data.error || "Грешка при пријављивању");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 shadow-lg rounded-xl bg-white">
-      <h1 className="text-2xl font-bold mb-4">Prijavi se</h1>
+    <div className="max-w-md mx-auto mt-20 p-6 bg-white shadow-md rounded-lg">
+      <h1 className="text-2xl font-bold mb-6 text-center">Пријавите се</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleLogin} className="space-y-4">
         <input
           type="email"
-          name="email"
-          placeholder="Email"
-          value={data.email}
-          onChange={handleChange}
+          placeholder="Имејл адреса"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full border px-4 py-2 rounded-md focus:ring-2 focus:ring-yellow-500"
           required
-          className="w-full border px-4 py-2 rounded"
         />
 
         <input
           type="password"
-          name="password"
-          placeholder="Lozinka"
-          value={data.password}
-          onChange={handleChange}
+          placeholder="Лозинка"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border px-4 py-2 rounded-md focus:ring-2 focus:ring-yellow-500"
           required
-          className="w-full border px-4 py-2 rounded"
         />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           type="submit"
-          disabled={loading}
-          className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded"
+          className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition"
         >
-          {loading ? "Učitavanje..." : "Prijavi se"}
+          Пријави се
         </button>
       </form>
+
+      <div className="text-center mt-4">
+        <p>
+          Немате налог?{" "}
+          <Link href="/register" className="text-yellow-600 underline">
+            Креирајте га сада!
+          </Link>
+        </p>
+      </div>
+
+      <div className="mt-6 space-y-3">
+        <button className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-md bg-white hover:bg-gray-50 transition">
+          <FaGoogle className="text-red-500 mr-3" />
+          <span className="text-sm font-medium text-gray-700">
+            Пријавите се путем Google-а
+          </span>
+        </button>
+
+        <button className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-md bg-white hover:bg-gray-50 transition">
+          <FaFacebookF className="text-blue-600 mr-3" />
+          <span className="text-sm font-medium text-gray-700">
+            Пријавите се путем Facebook-а
+          </span>
+        </button>
+      </div>
     </div>
   );
 }

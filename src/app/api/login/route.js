@@ -4,7 +4,7 @@ import User from "@/app/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "tajna_lozinka"; // koristi iz .env
+const JWT_SECRET = process.env.JWT_SECRET || "tajna_lozinka"; 
 
 export async function POST(req) {
   try {
@@ -23,11 +23,17 @@ export async function POST(req) {
     }
 
     // napravi JWT token
-    const token = jwt.sign(
-      { id: user._id, role: user.role, name: user.name, email: user.email },
-      JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+  const token = jwt.sign(
+  {
+    id: user._id,
+    role: user.role,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  },
+  JWT_SECRET,
+  { expiresIn: "7d" }
+);
 
     // postavi HttpOnly cookie
     const response = NextResponse.json({ message: "Uspešna prijava", user });
