@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/app/components/Navbar";
 import Footer from "./components/Footer";
 import "./globals.css";
 import CategoryNavbar from "./components/CategoryNavbar";
+import NavbarServerWrapper from "./components/NavbarServerWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navbar />
+        <NavbarServerWrapper />
         <CategoryNavbar />
 
         {/* Glavni sadržaj treba da raste i puni prostor */}
